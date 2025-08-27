@@ -1,0 +1,55 @@
+fitness-management-system:
+command to view hidden files
+"$ls -a" 
+command to delete hidden files
+""$rm -rf .idea"
+-----------
+Check network connectivity:
+Docker Compose: If using Docker Compose, ensure both the application and PostgreSQL containers are on the same Docker network. 
+Docker Compose automatically creates a default network for services defined in the docker-compose.yml file.
+--------------
+check proces-i, kill the process running on that port:
+$lsof -n -i4TCP:8088
+$kill -9 PID
+--------
+Mongo exress ui running locall url: "http://localhost:8081/"
+username: "admin",
+password: "admin",
+----
+Eureka dashboard url: "http://localhost:8761" 
+-----
+RabbitMQ management UI: "http://localhost:15672/#/"
+username: "user",
+password: "password"
+----
+Google Gemini API key: "AIzaSyAoF-BDIJPLefSwuqJ2hw-pqhSC1eoj6-o",
+-------
+testing config server locally:
+http://localhost:8888/user-service/default
+http://localhost:8888/api-gateway/default
+KeyCloak is an "Open Source Identity and Access Management" system,
+what is OAuth:
+OAuth (Open Authorization) is a standard protocoal that allows users to grant third-party applications access to their information,
+without sharing their password,
+OAuth is needed to enable secure and easy access to user information by third-party applications without compromising the user's credentials, like passwords,
+Authorization Coe Flow with "Proof Key for Code Exchange" (PKCE),
+---
+Keycloak url: "http://localhost:9098/admin",
+Added user 'admin' to realm 'master'
+realm: "fitness-network",
+client-id: "oauth2-pkce-client"
+after creating this client (Proof Key for Code Exchange Code), set this field on the advanced settings to "S256",
+redirect url: "http://localhost:5173" --> pointing to the front-end app,
+user created on the realm:
+username: "kdzikiti",
+password: "password1",
+-----------
+echo "# test-repo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/kieva290/fitness-management-system.git
+git push -u origin main
+-----------
+

@@ -1,0 +1,79 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: fitness_db_network
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/data/postgres
+    ports:
+      - 5433:5432
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo
+    container_name: mongo_db
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=training
+      - MONGO_INITDB_ROOT_PASSWORD=training
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo_express
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=training
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=training
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"  # Amqp protocol port
+      - "15672:15672" # Management UI port
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  keycloak:
+    container_name: keycloak-ms
+    image: quay.io/keycloak/keycloak:24.0.2
+    ports:
+      - 9098:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - fitness-demo
+    command:
+      - "start-dev"
+
+#  fitness-api:
+#    build: .
+#    container_name: fitness-api
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/fitness_db_network
+#    ports:
+#      - 8088:8088
+#    depends_on:
+#      - postgres
+
+networks:
+  fitness-demo:
+    driver: bridge
+
+volumes:
+  mongo:
+  rabbitmq_data:
+  postgres_data:
+    name: fitness_data

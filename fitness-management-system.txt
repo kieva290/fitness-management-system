@@ -36,7 +36,7 @@ Authorization Coe Flow with "Proof Key for Code Exchange" (PKCE),
 ---
 Keycloak url: "http://localhost:9098/admin",
 Added user 'admin' to realm 'master'
-realm: "fitness-network",
+realm name: "fitness-network",
 client-id: "oauth2-pkce-client"
 after creating this client (Proof Key for Code Exchange Code), set this field on the advanced settings to "S256",
 redirect url: "http://localhost:5173" --> pointing to the front-end app,
@@ -52,4 +52,13 @@ git branch -M main
 git remote add origin https://github.com/kieva290/fitness-management-system.git
 git push -u origin main
 -----------
-
+soo obviously after introducing keycloak,
+we now delegate create/register of new users to the system after first creating them on keycloak,
+then we applied filter class "KeycloakUSerSyncFilter", that delegate the syncing and registering of users to the,
+user-services, per every request done via the api-gateway, we sycn the keycloak user on the postgress database,
+so users stay ensync,
+-------------
+create React project:
+npm create vite@latest
+----
+npm install axios

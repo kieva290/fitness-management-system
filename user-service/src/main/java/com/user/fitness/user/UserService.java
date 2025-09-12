@@ -49,6 +49,12 @@ public class UserService {
 
     }
 
+    /**
+     * when request if coming from api-gateway, it send s the keycloakid,
+     * which then gets used to query the database
+     * @param userId
+     * @return
+     */
     public Boolean existByUserId(String userId) {
         log.info("Calling User Validation API for userId: {}", userId);
         return userRepository.existsByKeycloakId(userId);
